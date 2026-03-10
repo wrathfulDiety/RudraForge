@@ -1,3 +1,7 @@
+</div>
+<img src="https://komarev.com/ghpvc/?username=wrathfulDiety&style=flat-square&color=blue" alt=""/>
+<br>
+
 # RudraForge
 > Country-aware username wordlist generator for pentest enumeration
 
