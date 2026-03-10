@@ -1,209 +1,171 @@
 # RudraForge
-RudraForge — A lightweight, browser-based username generator that creates culturally diverse usernames using structured name datasets and randomization logic.
+> Country-aware username wordlist generator for pentest enumeration
 
-# RudraForge
+**Live tool:** https://wrathfuldiety.github.io/rudraforge/
 
-> Country-aware username wordlist generator for security testing and identity enumeration
-
-**Live Tool:** https://wrathfuldiety.github.io/rudraforge/
-
-Built by **Hasanka Amarasinghe**
-GitHub: https://github.com/wrathfuldiety
-LinkedIn: https://linkedin.com/in/hasanka-amarasinghe
+Built by [Hasanka Amarasinghe](https://linkedin.com/in/hasanka-amarasinghe) · [GitHub](https://github.com/wrathfuldiety)
 
 ---
 
-## Overview
-
-**RudraForge** generates realistic username permutations using culturally accurate first- and last-name datasets from multiple regions.
-
-Many enterprise environments follow predictable username formats such as:
+## What it does
+Generates realistic username wordlists based on country-specific first and last names, across 15 email formats — ready to pipe into `kerbrute`, `smtp-user-enum`, `hydra`, or any enumeration tool.
 
 ```
-firstname.lastname
-flastname
-lastname.firstname
-firstnamel
+john.smith@target.com
+jsmith@target.com
+smith.john@target.com
+j.smith@target.com
+... and 11 more formats
 ```
 
-RudraForge automates the generation of these permutations at scale, enabling security professionals to create high-quality username wordlists for **identity enumeration, security testing, and lab environments**.
-
-The project is named after **Rudra**, representing transformation and power — symbolizing the forging of identities from structured name data.
-
 ---
 
-## Features
-
-• Country-specific name datasets
-• Generates realistic corporate username formats
-• Supports **15 common enterprise naming conventions**
-• Client-side processing (no server required)
-• Instant export of generated wordlists
-• Static deployment compatible with GitHub Pages
-• Open dataset for community contribution
-
----
-
-## Username Formats
-
-| Format             | Example    |
-| ------------------ | ---------- |
+## Supported formats
+| Format | Example |
+|---|---|
 | firstname.lastname | john.smith |
-| firstnamelastname  | johnsmith  |
-| f.lastname         | j.smith    |
-| flastname          | jsmith     |
-| firstname.l        | john.s     |
-| firstnamel         | johns      |
+| firstnamelastname | johnsmith |
+| f.lastname | j.smith |
+| flastname | jsmith |
+| firstname.l | john.s |
+| firstnamel | johns |
 | lastname.firstname | smith.john |
-| lastnamefirstname  | smithjohn  |
-| lastname.f         | smith.j    |
-| lastnamef          | smithj     |
-| initials           | js         |
+| lastnamefirstname | smithjohn |
+| lastname.f | smith.j |
+| lastnamef | smithj |
+| fl (initials) | js |
 | firstname_lastname | john_smith |
-| f_lastname         | j_smith    |
+| f_lastname | j_smith |
 | lastname_firstname | smith_john |
-| lastname_f         | smith_j    |
-
-Selecting **ALL** will generate every permutation.
-
----
-
-## Example Output
-
-```
-liam.murphy
-lmurphy
-murphy.liam
-liamm
-l.murphy
-murphyl
-```
+| lastname_f | smith_j |
+| ★ ALL | all of the above |
 
 ---
 
-## Typical Use Cases
+## Usage (after generating)
+```bash
+# SMTP enumeration
+smtp-user-enum -M VRFY -U wordlist.txt -t TARGET_IP
 
-RudraForge can be useful for:
+# Active Directory / Kerberos
+kerbrute rudraforge wordlist.txt --domain target.com
 
-• Security research environments
-• Authorized penetration testing engagements
-• Identity enumeration simulations
-• Red-team lab exercises
-• Training environments for authentication security testing
-• Generating realistic datasets for defensive testing
+# Brute force
+hydra -L wordlist.txt -P passwords.txt smb://TARGET_IP
+```
 
 ---
 
-## Running Locally
+## Running locally
 
-### Requirements
+**Requirements:** Node.js (download from nodejs.org — LTS version)
 
-* Node.js (LTS recommended)
-
-### Clone the repository
-
-```
+```bash
 git clone https://github.com/wrathfuldiety/rudraforge.git
 cd rudraforge
-```
-
-### Install dependencies
-
-```
 npm install
-```
-
-### Start development server
-
-```
 npm run dev
 ```
-
-Then open:
-
-```
-http://localhost:5173
-```
+Open http://localhost:5173
 
 ---
 
-## Deployment
+## Contributing names
 
-RudraForge is a static client-side application and can be deployed easily using:
+All name data lives in one file: **`data/countries.json`**
 
-• GitHub Pages
-• Netlify
-• Vercel
-• Any static hosting provider
+No coding knowledge needed — it's just a list of names.
 
-Current deployment:
-
-```
-https://wrathfuldiety.github.io/rudraforge/
-```
-
----
-
-## Contributing Name Data
-
-All name datasets are stored in:
-
-```
-data/countries.json
-```
-
-Each entry follows the structure:
-
+### Structure
 ```json
 {
   "Ireland": {
     "flag": "🇮🇪",
     "region": "British Isles",
-    "first": ["liam", "sean", "aoife"],
-    "last": ["murphy", "kelly", "obrien"]
+    "first": ["liam", "sean", "aoife", "..."],
+    "last":  ["murphy", "kelly", "twohig", "..."]
   }
 }
 ```
 
-### Contribution Guidelines
+### How to contribute
 
-• Names should be culturally accurate
-• Use lowercase only
-• Avoid spaces in names
-• Remove apostrophes (e.g., `o'brien` → `obrien`)
-• Avoid duplicate entries
+**Option A — Edit directly on GitHub (easiest, no coding needed):**
+1. Go to [`data/countries.json`](https://github.com/wrathfuldiety/rudraforge/blob/main/data/countries.json) on GitHub
+2. Click the **pencil icon** (top right of the file)
+3. Find your country and add names to the `first` or `last` arrays
+4. Scroll down and click **Propose changes**
+5. Click **Create pull request**
+6. Done — I'll review and merge it ✅
 
-Pull requests adding new countries or expanding name datasets are welcome.
+**Option B — Fork and PR (standard open source flow):**
+```bash
+# 1. Fork the repo on GitHub (click Fork button top right)
+# 2. Clone your fork
+git clone https://github.com/YOUR_USERNAME/rudraforge.git
+cd rudraforge
+
+# 3. Edit data/countries.json
+
+# 4. Commit and push
+git add data/countries.json
+git commit -m "add more Irish surnames"
+git push
+
+# 5. Open a Pull Request on GitHub
+```
+
+### Contribution guidelines
+- Names should be **realistic and culturally accurate** for that country
+- **Lowercase only** — the tool handles capitalisation
+- No spaces in names — use hyphens for hyphenated names e.g. `jean-pierre`
+- Remove apostrophes — `o'brien` becomes `obrien`
+- No duplicates
+- Adding a new country? Copy the structure exactly from an existing entry and add it in the correct region
+
+### Adding a new country
+```json
+"Nepal": {
+  "flag": "🇳🇵",
+  "region": "South Asia",
+  "first": ["bikram", "krishna", "sita", "..."],
+  "last":  ["sharma", "thapa", "tamang", "..."]
+}
+```
+
+Regions available:
+- `British Isles`
+- `Western Europe`
+- `Northern Europe`
+- `Eastern Europe`
+- `Southern Europe`
+- `North America`
+- `South America`
+- `Middle East`
+- `South Asia`
+- `East Asia`
+- `Southeast Asia`
+- `Central Asia`
+- `Africa`
+- `Oceania`
 
 ---
 
-## Project Structure
-
+## Project structure
 ```
 rudraforge/
 ├── data/
-│   └── countries.json
+│   └── countries.json   ← all name data lives here (contribute here!)
 ├── src/
-│   ├── App.jsx
-│   ├── main.jsx
-│   └── components/
+│   ├── App.jsx          ← the tool UI
+│   └── main.jsx         ← entry point
 ├── index.html
 ├── vite.config.js
+├── CONTRIBUTING.md
 └── README.md
 ```
 
 ---
 
-## Security and Responsible Use
-
-RudraForge is intended for **authorized security testing, research, and educational purposes**.
-
-Users must ensure they have **explicit permission** before using generated wordlists against any systems, networks, or services.
-
-The author assumes **no responsibility for misuse** of this software.
-
----
-
-## License
-
-MIT License
+## Disclaimer
+This tool is intended for **authorised penetration testing and security research only**. Use responsibly and only against systems you have explicit permission to test.
