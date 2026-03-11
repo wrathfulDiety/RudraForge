@@ -1,7 +1,7 @@
 # RudraForge
 > Country-aware username wordlist generator for pentest enumeration
 
-**Live tool:** https://wrathfuldiety.github.io/rudraforge/
+**Live tool:** https://wrathfuldiety.github.io/RudraForge/
 
 Built by [Hasanka Amarasinghe](https://linkedin.com/in/hasanka-amarasinghe) · [GitHub](https://github.com/wrathfuldiety)
 
@@ -61,8 +61,8 @@ hydra -L wordlist.txt -P passwords.txt smb://TARGET_IP
 **Requirements:** Node.js (download from nodejs.org — LTS version)
 
 ```bash
-git clone https://github.com/wrathfuldiety/rudraforge.git
-cd rudraforge
+git clone https://github.com/wrathfuldiety/RudraForge.git
+cd RudraForge
 npm install
 npm run dev
 ```
@@ -91,7 +91,7 @@ No coding knowledge needed — it's just a list of names.
 ### How to contribute
 
 **Option A — Edit directly on GitHub (easiest, no coding needed):**
-1. Go to [`data/countries.json`](https://github.com/wrathfuldiety/rudraforge/blob/main/data/countries.json) on GitHub
+1. Go to [`data/countries.json`](https://github.com/wrathfuldiety/RudraForge/blob/main/data/countries.json) on GitHub
 2. Click the **pencil icon** (top right of the file)
 3. Find your country and add names to the `first` or `last` arrays
 4. Scroll down and click **Propose changes**
@@ -102,8 +102,8 @@ No coding knowledge needed — it's just a list of names.
 ```bash
 # 1. Fork the repo on GitHub (click Fork button top right)
 # 2. Clone your fork
-git clone https://github.com/YOUR_USERNAME/rudraforge.git
-cd rudraforge
+git clone https://github.com/wrathfuldiety/RudraForge.git
+cd RudraForge
 
 # 3. Edit data/countries.json
 
@@ -153,7 +153,7 @@ Regions available:
 
 ## Project structure
 ```
-rudraforge/
+RudraForge/
 ├── data/
 │   └── countries.json   ← all name data lives here (contribute here!)
 ├── src/
